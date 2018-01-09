@@ -1,0 +1,178 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 17, 2016, 10:49:52 AM
+    Author     : pmurray1991
+*/
+
+.navbar-brand>img{
+    height: 100%;
+    width: auto;
+}
+#welcomeHeader{
+    text-align: center;
+}
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc 
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+#loginPage{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.modal-body{
+    overflow-y: auto;
+}
+
+#programName{
+    margin-bottom: 10px;
+}
+#ProgramDescription{
+    margin-bottom: 10px;
+}
+
+#ExistingPrograms{
+    width:80%;
+    margin:auto;
+    padding-bottom: 10px;
+}
+
+#ExistingPrograms h5{
+    text-align: center;
+}
+#ExistingPrograms div.row {
+    padding-bottom: inherit;
+    border-bottom: 3pt solid #ddd;
+}
+
+@media (min-width: 768px){
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1  {
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
+    }
+}
+
+@media (min-width: 992px) {
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
+    }
+}
+
+/**
+ *  The following is not really needed in this case
+ *  Only to demonstrate the usage of @media for large screens
+ */
+@media (min-width: 1200px) {
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
+    }
+    #Column_1:hover,
+    #Column_2:hover,
+    #Column_3:hover,
+    #Column_4:hover,
+    #Column_5:hover,
+    #Column_6:hover,
+    #Column_7:hover {
+        background-color: #e0e0e0;
+    }
+
+}
+
+
+
+#Column_1,
+#Column_2,
+#Column_3,
+#Column_4,
+#Column_5,
+#Column_6,
+#Column_7{
+    border: 1px solid #0f0f0f;
+    padding: 0px;
+
+}
+
+
+#DateButton_1,
+#DateButton_2,
+#DateButton_3,
+#DateButton_4,
+#DateButton_5,
+#DateButton_6,
+#DateButton_7{
+    background: -webkit-gradient(
+    linear, left top, left bottom,
+from(#ffffff),
+color-stop(0.50, #e0e0e0),
+to(#FFFFFF));
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    -moz-box-shadow:
+            0px 1px 1px rgba(000,000,000,0.5),
+            inset 1px 2px 0px rgba(255,255,255,0.4);
+    -webkit-box-shadow:
+            0px 1px 1px rgba(000,000,000,0.5),
+            inset 1px 2px 0px rgba(255,255,255,0.4);
+    box-shadow:
+            0px 1px 1px rgba(000,000,000,0.5),
+            inset 1px 2px 0px rgba(255,255,255,0.4);
+    text-shadow:
+            1px 1px 2px rgba(000,000,000,0.7),
+            0px 1px 0px rgba(255,255,255,0.4);
+    text-decoration: underline;
+    padding: 0px;
+}
+
+#datepicker{
+
+}

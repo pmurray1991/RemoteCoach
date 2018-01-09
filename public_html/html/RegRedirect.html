@@ -1,0 +1,14 @@
+<div style="position: fixed;top: 50%;left: 50%; transform: translate(-50%,-50%);">
+    Success! You may now login!<br>
+    You will be redirected in <span id="counter">5</span> Seconds!
+</div>
+<script>
+        setInterval(function() {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                location.href="./";
+            }
+        }, 1000);
+</script>

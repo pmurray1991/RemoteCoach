@@ -1,0 +1,25 @@
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<script src="jquery-2.2.3.min.js"></script>
+		<title>Remote Coach</title>
+	</head>
+	<body>
+		<div id="login" name="login">
+			Username<input type="text" name="user"/>
+			password<input type="text" name="pass" />
+			<button id ="submit" type="button">Submit</button>
+		</div>
+		
+		<script>
+			$(document).ready(function(){
+				$("#submit").click(function(){
+					alert("#user".val());
+				});
+			});
+		</script>
+		
+	</body>
+	
+</html>
