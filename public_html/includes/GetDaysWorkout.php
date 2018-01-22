@@ -2,13 +2,13 @@
 session_start();
 require '../../Connection.php';
 
-if(isset($_SESSION["id"]) && isset($_POST["selectid"]) && isset($_POST["woDay"])){
+if(isset($_SESSION["id"]) && isset($_POST["selectid"])){
     $conn = GetMyConnection();
     $progId = $_POST["selectid"];
     $_SESSION['program_id'] = $progId;
     $_SESSION['program_name'] = $_POST["program_name"];
-    $tempList = $_POST['woDay'];
-    $woDay = "('".implode("','", $tempList)."')";
+//    $tempList = $_POST['woDay'];
+//    $woDay = "('".implode("','", $tempList)."')";
     $sql = "Select Exercise_Workout.ExWork_id, "
             . "    Exercise_Workout.Ex_id, "
             . "    Exercise.Ex_Name, "
@@ -19,9 +19,8 @@ if(isset($_SESSION["id"]) && isset($_POST["selectid"]) && isset($_POST["woDay"])
             . "From Exercise_Workout "
             . "             join Exercise on Exercise_Workout.Ex_id = Exercise.Exercise_id "
             . "             join Workout W ON Exercise_Workout.Workout_id = W.Workout_id "
-            . "Where W.Workout_Day IN $woDay "
-            .     "AND W.Program_ID = $progId "
-            . "ORDER BY W.Workout_Day ASC ";
+            . "Where W.Program_ID = $progId "
+            . "ORDER BY W.Workout_Day ASC, Exercise_Workout.WorkoutSequence ASC ";
     $result = mysqli_query($conn,$sql);
     $data =array();
     if($result){

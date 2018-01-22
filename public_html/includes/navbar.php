@@ -22,11 +22,11 @@ session_start();
          <!--<li><a href = "CreateWorkoutProgram.php">Build Workout</a></li>-->
          <?php
             if(isset($_SESSION["login"])){
-                echo('<li><a id ="ProgramPage"href = "#Program">Program</a></li>');
-                echo('<li><a id="MakeProgram" href = "#MakeProgram">Make Program</a></li>');
-                echo('<li><a id ="CreateExercise" href = "#CreateExercise">Create Exercise</a></li>');
-                echo('<li><a id ="CreateWorkout" href = "#CreateWorkout">Create Workout</a></li>');
-                echo('<li><a id ="Logout"href = "#Logout">Logout</a></li>');
+                echo('<li data-toggle="collapse" data-target=".navbar-collapse.in"><a id ="ProgramPage"  href = "#Program">Program</a></li>');
+                echo('<li><a id="MakeProgram" data-toggle="collapse" data-target=".navbar-collapse.in" href = "#MakeProgram">Make Program</a></li>');
+                echo('<li><a id ="CreateExercise" data-toggle="collapse" data-target=".navbar-collapse.in" href = "#CreateExercise">Create Exercise</a></li>');
+                echo('<li><a id ="CreateWorkout" data-toggle="collapse"  data-target=".navbar-collapse.in" href = "#CreateWorkout">Create Workout</a></li>');
+                echo('<li><a id ="Logout" data-toggle="collapse"  data-target=".navbar-collapse.in" href ="#Logout">Logout</a></li>');
             }
          ?>
          

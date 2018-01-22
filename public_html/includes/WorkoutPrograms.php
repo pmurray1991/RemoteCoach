@@ -1,5 +1,5 @@
 <div class="row" id ="ExistingPrograms">
-        <h5>Workout Programs</h5>
+        <h1>Workout Programs</h1>
     </div>
     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create Workout Program</button>
     

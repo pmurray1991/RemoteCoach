@@ -128,26 +128,20 @@ and open the template in the editor.
 
 
 
-#Column_1,
-#Column_2,
-#Column_3,
-#Column_4,
-#Column_5,
-#Column_6,
-#Column_7{
+.workout-rows{
     border: 1px solid #0f0f0f;
     padding: 0px;
 
 }
 
+[id^=ExID_]{
+    padding: 5px;
+}
+[id^=ExID_] div{
+    text-align: center;
+}
 
-#DateButton_1,
-#DateButton_2,
-#DateButton_3,
-#DateButton_4,
-#DateButton_5,
-#DateButton_6,
-#DateButton_7{
+.WorkoutDate{
     background: -webkit-gradient(
     linear, left top, left bottom,
 from(#ffffff),
@@ -171,8 +165,17 @@ to(#FFFFFF));
             0px 1px 0px rgba(255,255,255,0.4);
     text-decoration: underline;
     padding: 0px;
+    text-align: center;
 }
 
-#datepicker{
+h1 {
+    text-align: center;
+}
 
+#selectionRow{
+    padding-bottom: 10px;
+}
+
+.rest-day{
+    text-align: center;
 }

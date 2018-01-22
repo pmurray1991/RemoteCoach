@@ -4,3 +4,7 @@ session_destroy();
 //echo 'You have been logged out. <a href="#">Go back</a>';
 ?>
 <meta http-equiv="refresh" content="0;URL=#" />
+<script>
+    localStorage.clear();
+    sessionStorage.clear();
+</script>

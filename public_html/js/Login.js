@@ -26,7 +26,7 @@ $("#login-nav").submit(function(event){
 
            var temp = {"userId": response};
            // temp.userId = response;
-           localStorage.setItem("Session", temp);
+           localStorage.setItem("userID", response);
            window.location.href = "";
        }
     });
