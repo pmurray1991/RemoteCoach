@@ -80,7 +80,7 @@ function addWorkoutToList(workout_days){
     // }
     for(var k in workout_days){
         var formatted_date = moment(k).format('YYYYMMDD');
-        var new_row = '<div class="row workout-rows" id='+formatted_date+'>' +
+        var new_row = '<div class="container row workout-rows" id='+formatted_date+'>' +
                 '<div class="WorkoutDate">'+
                     '<p>'+moment(k).format("MM/DD/YYYY")+'</p>'+
                 '</div>'+
@@ -90,33 +90,24 @@ function addWorkoutToList(workout_days){
             $("#"+formatted_date).append('<div class="rest-day">Rest Day</div>');
             continue;
         }
+
         for(var v in workout_days[k]){
-            var lift_row = '<div class="container" id='+"ExID_"+workout_days[k][v].ExWork_id+'></div>';
+            var lift_row = '<div class="wRows" id='+"ExID_"+workout_days[k][v].ExWork_id+'></div>';
             $("#"+formatted_date).append(lift_row);
-            $("#ExID_"+workout_days[k][v].ExWork_id).append('<div class="col-xs-4">'+ workout_days[k][v].Ex_Name +'</div>'+
+            $("#ExID_"+workout_days[k][v].ExWork_id).append('' +
+                '<div id='+workout_days[k][v].Ex_id+' class="col-xs-4">'+ workout_days[k][v].Ex_Name +'</div>'+
                 '<div class="col-xs-4">'+ workout_days[k][v].SetsAndReps +'</div>'+
                 '<div class="input-group col-xs-4">' +
                 '<input type="text" class="" placeholder="Results">'+
                 '</div>');
         }
+        $("#"+formatted_date).append('<div class="submitWorkout btn ui-button col-xs-offset-5 col-xs-2 col-xs-offset-7">Submit</div>');
+
 
     }
-//     var formatted_date = moment(date).format('YYYYMMDD');
-//     if($("#"+formatted_date).length == 0){
-//         var new_row = '<div class="row workout-rows" id='+formatted_date+'>' +
-//                 '<div class="WorkoutDate">'+
-//                     '<p>'+moment(date).format("MM/DD/YYYY")+'</p>'+
-//                 '</div>'+
-//             '</div>';
-//         console.log(new_row);
-//         $("#WorkoutList").append(new_row);
-//     }
-//     var lift_row = '<div class="row" id='+"ExID_"+data.ExWork_id+'></div>';
-//     console.log($("#"+formatted_date).length);
-//     $("#"+formatted_date).append(lift_row);
-//     $("#ExID_"+data.ExWork_id).append('<div class="col-xs-4">'+ data.Ex_Name +'</div>'+
-//         '<div class="col-xs-4">'+ data.SetsAndReps +'</div>');
+
 };
+
 $("#workoutProgramList").on('click','li a',function(){
    $("#programsText").text($(this).text());
    // $("#programsText").val($(this).data('value'));
@@ -133,4 +124,15 @@ $(".seven-cols").on('click','div',function () {
 
 });
 
+$('div').one('click','div.submitWorkout',function(e) {
+    e.stopImmediatePropagation();
+    var workout_data = $(this).siblings('.wRows').get();
+    var submitted_data = {"WorkoutData":[]};
+    for(var i in workout_data){
+        var row_data = workout_data[i].children().get();
+        submitted_data.WorkoutData.append({Ex_ID})
 
+    }
+
+    console.log(workout_data);
+});
