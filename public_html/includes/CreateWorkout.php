@@ -1,3 +1,4 @@
+<script src="js/BuildWorkout.js"></script>
 <form>
     <div class="form-group" id="pSelect">
         <label for='ProgramsList'>Available Programs</label>
@@ -76,4 +77,4 @@
 </form>
 
 
-<script src="js/BuildWorkout.js"></script>
+

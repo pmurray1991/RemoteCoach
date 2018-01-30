@@ -6,7 +6,7 @@
 
 $("#datepicker").datepicker();
 var daylist = [];
-$(document).ready(function(){
+$(function(){
     var today = new Date();
     var dayOfWeekStartingSundayZeroIndexBased = today.getDay(); // 0 : Sunday ,1 : Monday,2,3,4,5,6 : Saturday
     for(var i=0; i< 7; i++){
@@ -130,7 +130,7 @@ $('div').one('click','div.submitWorkout',function(e) {
     var submitted_data = {"WorkoutData":[]};
     for(var i in workout_data){
         var row_data = workout_data[i].children().get();
-        submitted_data.WorkoutData.append({Ex_ID})
+        // submitted_data.WorkoutData.append({Ex_ID})
 
     }
 

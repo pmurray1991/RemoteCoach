@@ -3,7 +3,7 @@ function loadNewWorkout(){
     $("#CreateNew").show();
     $("#ExistingOrNew").hide();
 };
-$(document).ready(function(){
+$(function(){
     console.log(sessionStorage.programList);
     if(typeof(Storage) !== "undefined") {
         if (sessionStorage.programList) {
@@ -17,7 +17,7 @@ $(document).ready(function(){
         else {
             $.post("includes/GetWorkoutPrograms.php", {}, function (response) {
                 //console.log("response: " + response);
-                var res = jQuery.parseJSON(response);
+                var res = JSON.parse(response);
                 sessionStorage.programList = response;
                 //console.log(res);
                 for (var i = 0; i < res.length; i++) {
@@ -30,7 +30,7 @@ $(document).ready(function(){
     }else {
         $.post("includes/GetWorkoutPrograms.php", {}, function (response) {
             //console.log("response: " + response);
-            var res = jQuery.parseJSON(response);
+            var res = JSON.parse(response);
             sessionStorage.programList = res;
             //console.log(res);
             for (var i = 0; i < res.length; i++) {

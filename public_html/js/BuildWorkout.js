@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function(){
+$(function(){
     console.log("Create Workout Page");
     $.post("includes/GetWorkoutPrograms.php",{},function(response){
         
-        var res = jQuery.parseJSON(response);
+        var res = JSON.parse(response);
         console.log(response);
         for(var i = 0; i < res.length;i++){
             var obj = res[i];
@@ -17,7 +17,7 @@ $(document).ready(function(){
         }
     });
     $.post("includes/GetExercises.php",{},function(response){
-        var res = jQuery.parseJSON(response);
+        var res = JSON.parse(response);
         //console.log(response);
         for(var i = 0; i < res.length;i++){
             var obj = res[i];
@@ -31,7 +31,7 @@ $(document).ready(function(){
      selProgId = $("#ProgramsList").children(":selected").attr("id");
      console.log(selProgId);
      $.post("includes/GetWorkoutDay.php",{"selectid":selProgId},function(response){
-        var res = jQuery.parseJSON(response);
+        var res = JSON.parse(response);
         console.log(response);
         for(var i = 0; i < res.length;i++){
             var obj = res[i];
@@ -45,8 +45,8 @@ $(document).ready(function(){
      $("#dayInput, #theExercise, #SetsAndReps, #WorkoutSequence").fadeIn();
      
  });
- var woID
- var woDay
+ var woID;
+ var woDay;
  var tableHead = "<div class=\"row\">\
             <div class=\"col-xs-3\"><label>Delete Row</label></div>\
             <div class=\"col-xs-3\"><label>Exercise Sequence</label></div>\
@@ -59,8 +59,8 @@ $(document).ready(function(){
      woID = $("#workoutDay").children(":selected").attr("id");
      woDay = $("#workoutDay").children(":selected").val();
      
-     $.post("includes/GetDaysWorkout.php",{"woID": woID, "woDay": woDay},function(response){
-        var res = jQuery.parseJSON(response);
+     $.post("includes/GetDaysWorkout.php",{"woID": woID},function(response){
+        var res = JSON.parse(response);
         console.log(response);
         for(var i = 0; i < res.length;i++){
             var obj = res[i];
