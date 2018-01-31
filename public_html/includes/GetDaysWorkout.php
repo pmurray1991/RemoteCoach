@@ -4,6 +4,7 @@ require '../../Connection.php';
 
 if(isset($_SESSION["id"]) && isset($_POST["selectid"]) || isset($_POST["woID"])){
     $conn = GetMyConnection();
+    $user = $_SESSION['id'];
     if(isset($_POST["selectid"])) {
         $progId = $_POST["selectid"];
         $where = "Where W.Program_ID = $progId ";
@@ -17,20 +18,24 @@ if(isset($_SESSION["id"]) && isset($_POST["selectid"]) || isset($_POST["woID"]))
     if(isset($_POST["program_name"])) {
         $_SESSION['program_name'] = $_POST["program_name"];
     }
+
+    $nested_sql="SELECT Results.Exercise_Workout_id FROM Results WHERE Person_id = $user";
 //    $tempList = $_POST['woDay'];
 //    $woDay = "('".implode("','", $tempList)."')";
-    $sql = "Select Exercise_Workout.ExWork_id, "
-            . "    Exercise_Workout.Ex_id, "
-            . "    Exercise.Ex_Name, "
-            . "    Exercise_Workout.SetsAndReps, "
-            . "    Exercise_Workout.WorkoutSequence, "
-            . "    Exercise_Workout.Workout_id, "
-            . "    W.Workout_Day "
-            . "From Exercise_Workout "
-            . "             join Exercise on Exercise_Workout.Ex_id = Exercise.Exercise_id "
-            . "             join Workout W ON Exercise_Workout.Workout_id = W.Workout_id "
-            . "{$where}"
-            . "ORDER BY W.Workout_Day ASC, Exercise_Workout.WorkoutSequence ASC ";
+    $sql = "Select Exercise_Workout.ExWork_id, 
+                   Exercise_Workout.Ex_id, 
+                   Exercise.Ex_Name, 
+                   Exercise_Workout.SetsAndReps, 
+                   Exercise_Workout.WorkoutSequence, 
+                   Exercise_Workout.Workout_id, 
+                   W.Workout_Day 
+            From Exercise_Workout 
+                 join Exercise on Exercise_Workout.Ex_id = Exercise.Exercise_id 
+                 join Workout W ON Exercise_Workout.Workout_id = W.Workout_id 
+            {$where}
+              AND Exercise_Workout.ExWork_id NOT in($nested_sql)
+            ORDER BY W.Workout_Day ASC, Exercise_Workout.WorkoutSequence ASC ";
+
     $result = mysqli_query($conn,$sql);
     $data =array();
     if($result){

@@ -12,7 +12,7 @@ session_start();
          <span class = "icon-bar"></span>
       </button>
 		
-      <a class = "navbar-brand" id="index"href = "#">Remote Coach</a>
+      <a class = "navbar-brand" id="index" href ="#">Remote Coach</a>
    </div>
    
    <div class = "collapse navbar-collapse" id = "example-navbar-collapse">

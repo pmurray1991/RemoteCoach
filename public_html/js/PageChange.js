@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 $(".navbar-inverse a").on("click", function(){
-    $(".nav").find(".active").removeClass("active");
+    $(".nav.navbar-nav").find(".active").removeClass("active");
     $(this).parent().addClass("active");
     var contLink = "html/"+$(this).text().replace(/ /g,'') +".html";
     

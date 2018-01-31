@@ -6,18 +6,13 @@
 
 $("#datepicker").datepicker();
 var daylist = [];
+
+var completed = [];
 $(function(){
-    var today = new Date();
-    var dayOfWeekStartingSundayZeroIndexBased = today.getDay(); // 0 : Sunday ,1 : Monday,2,3,4,5,6 : Saturday
-    for(var i=0; i< 7; i++){
-        thedate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+i)
-        daylist.push(moment(thedate).format("YYYY-MM-DD"));
-        $("#DateButton_"+(i+1)).append('<p scope="col" id="date"'+i+1+'>'+moment(thedate).format("MM/DD/YYYY")+'<br></p>');
-    }
     $.post("includes/GetWorkoutProgram.php",{},function(response){
        console.log(response);
        response = JSON.parse(response);
-
+       activaTab("PendingList");
        for(i=0; i<response.length; i++){
            // if()
            $("#workoutProgramList").append('<li><a data-value='+response[i].Program_id+'>'+ response[i].Pro_Name+'</a></li>');
@@ -29,7 +24,8 @@ $(function(){
     });
     if($("#programsText").val() != "-1"){
         console.log("Programs ID: "+$("#programsText").data('value'));
-        setWorkouts($("#programsText").data('value'))
+        setWorkouts($("#programsText").data('value'));
+        setCompleted();
     }
    
 });
@@ -55,29 +51,19 @@ function setWorkouts(selId){
         for(i=0; i<response.length; i++){
 
             workout_days[response[i].Workout_Day].push(response[i]);
-            // response_date = response[i].Workout_Day;
-            // response_data = response[i];
-            // // addWorkoutToList(response_date, response_data);
-            // column_index = daylist.indexOf(response_date)+1;
-            // $("#Workout_"+column_index).append('<p scope="col">'+response[i].Ex_Name+'</p>');
 
         }
         addWorkoutToList(workout_days);
-
+        // activaTab("PendingList");
     });
 }
 
+function createWorkoutList(){
+
+}
+
+
 function addWorkoutToList(workout_days){
-    // var start_date = moment().format('YYYY-MM-DD');
-    // console.log(workout_days);
-    // var end_date = Object.keys(workout_days)[Object.keys(workout_days).length-1];
-    // console.log(end_date);
-    // while(start_date < end_date){
-    //     if(!(start_date in workout_days)){
-    //         workout_days[start_date]= [];
-    //     }
-    //     start_date = moment(start_date, "YYYY-MM-DD").add(1, 'days').format('YYYY-MM-DD');
-    // }
     for(var k in workout_days){
         var formatted_date = moment(k).format('YYYYMMDD');
         var new_row = '<div class="container row workout-rows" id='+formatted_date+'>' +
@@ -85,7 +71,7 @@ function addWorkoutToList(workout_days){
                     '<p>'+moment(k).format("MM/DD/YYYY")+'</p>'+
                 '</div>'+
             '</div>';
-        $("#WorkoutList").append(new_row);
+        $("#PendingList").append(new_row);
         if(workout_days[k].length == 0){
             $("#"+formatted_date).append('<div class="rest-day">Rest Day</div>');
             continue;
@@ -109,12 +95,14 @@ function addWorkoutToList(workout_days){
 };
 
 $("#workoutProgramList").on('click','li a',function(){
-   $("#programsText").text($(this).text());
-   // $("#programsText").val($(this).data('value'));
-   $("#programsText").data('value',$(this).data('value'));
-   console.log($(this).data('value'));
-   setWorkouts($(this).data('value'));
-
+    if($(this).text() != $("#programsText").text()) {
+        $("#PendingList").empty();
+        $("#programsText").text($(this).text());
+        // $("#programsText").val($(this).data('value'));
+        $("#programsText").data('value', $(this).data('value'));
+        console.log($(this).data('value'));
+        setWorkouts($(this).data('value'));
+    }
 
 });
 
@@ -127,12 +115,49 @@ $(".seven-cols").on('click','div',function () {
 $('div').one('click','div.submitWorkout',function(e) {
     e.stopImmediatePropagation();
     var workout_data = $(this).siblings('.wRows').get();
+    var workoutResults = [];
     var submitted_data = {"WorkoutData":[]};
     for(var i in workout_data){
-        var row_data = workout_data[i].children().get();
-        // submitted_data.WorkoutData.append({Ex_ID})
-
+        var row_data = $(workout_data[i]).children().get();
+        var templist = []
+        templist.push($(row_data[0]).attr('id'));
+        templist.push($(row_data[2]).children("input").val());
+        workoutResults.push(templist);
     }
+    completed.push(this.parentElement);
+    $(this.parentElement).fadeOut("normal",function(){
+        $(this).remove();
+    });
+    console.log(this.parentElement);
+    // $.post("includes/SetResults.php",{"Results":workoutResults},function (response) {
+    //     if(response == 1){
+    //
+    //     }
+    // });
 
-    console.log(workout_data);
+    // console.log(workoutResults);
 });
+
+$(".nav.nav-tabs.nav-justified.container.row>li>a").on("click",function() {
+    $(this).tab("show");
+});
+//     e.preventDefault();
+//     if(this.parentElement.className != "active"){
+//         $(".nav.nav-tabs.nav-justified.container.row").find(".active").removeClass("active");
+//         $(this.parentElement).addClass("active");
+//
+//         alert("worked!");
+//         // for(var x in completed){
+//         //     $("#PendingList").append(x);
+//         // }
+//     }
+//     // console.log(this)
+//     // $(".nav.navbar-nav").find(".active").removeClass("active");
+// });
+// $(".nav.nav-tabs.nav-justified.container.row a[href=\"#PendingList\"]").on("click",function () {
+//   alert("navtabe clicked!");
+// })
+
+function activaTab(tab){
+    $(".nav.nav-tabs.nav-justified.container.row a[href=\"#PendingList\"]").tab("show");
+};
