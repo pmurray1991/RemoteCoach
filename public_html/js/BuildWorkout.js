@@ -4,6 +4,15 @@
  * and open the template in the editor.
  */
 
+var tableHead = "<div class=\"row\">\
+            <div class=\"col-xs-3\"><label>Delete Row</label></div>\
+            <div class=\"col-xs-3\"><label>Exercise Sequence</label></div>\
+            <div class=\"col-xs-3\"><label>Exercise</label></div>\
+            <div class=\"col-xs-3\"><label>Reps and Sets</label></div>\
+        </div>";
+var woID;
+var woDay;
+var workoutsList;
 $(function(){
     console.log("Create Workout Page");
     $.post("includes/GetWorkoutPrograms.php",{},function(response){
@@ -12,7 +21,7 @@ $(function(){
         console.log(response);
         for(var i = 0; i < res.length;i++){
             var obj = res[i];
-            $("#ProgramsList").append("<option id=\""+obj["Program_id"]+"\">"+obj["Pro_Name"]+"</option")
+            $("#ProgramsList").append('<li><a href="#WorkoutsPage" id="'+obj["Program_id"]+'" data-toggle="tab" aria-expanded=\"false\">'+obj.Pro_Name+'</a></li>')
            //addToPage(response[i]);
         }
     });
@@ -45,32 +54,60 @@ $(function(){
      $("#dayInput, #theExercise, #SetsAndReps, #WorkoutSequence").fadeIn();
      
  });
- var woID;
- var woDay;
- var tableHead = "<div class=\"row\">\
-            <div class=\"col-xs-3\"><label>Delete Row</label></div>\
-            <div class=\"col-xs-3\"><label>Exercise Sequence</label></div>\
-            <div class=\"col-xs-3\"><label>Exercise</label></div>\
-            <div class=\"col-xs-3\"><label>Reps and Sets</label></div>\
-        </div>";
- $("#workoutDay").on("change",function(){
-     $("#editWorkout").empty();
-     $("#editWorkout").append(tableHead);
-     woID = $("#workoutDay").children(":selected").attr("id");
-     woDay = $("#workoutDay").children(":selected").val();
-     
-     $.post("includes/GetDaysWorkout.php",{"woID": woID},function(response){
-        var res = JSON.parse(response);
-        console.log(response);
-        for(var i = 0; i < res.length;i++){
-            var obj = res[i];
-            var ewString = editWorkoutString(obj)
-            $("#editWorkout").append(ewString);
-        }
+ $("#ProgramsList").on("click","li a",function(){
+     woID = $(this).attr("id");
+     $("#editWorkout").fadeOut();
+     workoutsList = {};
+     $.post("includes/GetDaysWorkout.php",{"program_ID": woID},function(response) {
+         var res = JSON.parse(response);
+         console.log(response);
+         for (var i = 0; i < res.length; i++) {
+             var obj = res[i];
+
+             var ewString = editWorkoutString(obj);
+             console.log(workoutsList);
+             if(!(obj["Workout_Day"] in workoutsList)) {
+                 workoutsList[obj["Workout_Day"]] = [];
+             }
+             workoutsList[obj["Workout_Day"]].push(ewString)
+         }
      });
-     $("#editWorkout").fadeIn();
-     //alert(woID);
+     $("#datepicker").datepicker({
+         "dateFormat": 'yy-mm-dd',
+         beforeShowDay: function(date){
+
+             var search = date.getFullYear() + '-' + ('0'+(date.getMonth() + 1)).slice(-2) + '-' + date.getDate();
+             if(search in workoutsList){
+                 // alert(search);
+                 return [true, 'highlight', search]
+             }
+             return [true, '', '']
+         }
+     });
  });
+
+
+$("#datepicker").on('change',function(event){
+    event.preventDefault();
+    var date = $("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
+    $("#editWorkout").empty();
+    $("#editWorkout").append(tableHead);
+
+    // woDay = date;
+    console.log(date);
+    var selectedDay = date;
+    if(date in workoutsList){
+        for(var i = 0; i < workoutsList[date].length; i++){
+            $("#editWorkout").append(workoutsList[date][i])
+        }
+    }
+
+    $("#editWorkout").fadeIn();
+});
+
+
+
+
  var deleteRow;
 $(document).on("click","span.glyphicon.glyphicon-minus-sign.btn",function(){
     deleteRow = $(this).parent().parent();

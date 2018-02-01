@@ -26,7 +26,7 @@ $(".navbar-inverse a").on("click", function(){
     //$("#content").load(contLink);
 });
 
-window.onload = function(){
+$(function(){
     var hash = window.location.hash;
     console.log(hash);
     hash = hash.split("#")[1];
@@ -37,7 +37,7 @@ window.onload = function(){
         $(".container").empty();
     }
     
-};
+});
 function checkingHash(hashValue){
     $(".container").empty();
     switch(hashValue){

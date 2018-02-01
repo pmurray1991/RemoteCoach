@@ -25,7 +25,7 @@ $(function(){
     if($("#programsText").val() != "-1"){
         console.log("Programs ID: "+$("#programsText").data('value'));
         setWorkouts($("#programsText").data('value'));
-        setCompleted();
+        // setCompleted();
     }
    
 });
@@ -41,6 +41,10 @@ function setWorkouts(selId){
         response = JSON.parse(response);
         var workout_days = {};
         var start_day = moment(response[0].Workout_Day).format('YYYY-MM-DD');
+        var today = moment().format('YYYY-MM-DD');
+        if(start_day> today){
+            start_day=today;
+        }
         var end_day = moment(response[response.length-1].Workout_Day).format('YYYY-MM-DD');
         while(start_day <= end_day){
             if(!(start_day in workout_days)){
@@ -53,17 +57,32 @@ function setWorkouts(selId){
             workout_days[response[i].Workout_Day].push(response[i]);
 
         }
-        addWorkoutToList(workout_days);
+        addWorkoutToList(workout_days,"#PendingList");
         // activaTab("PendingList");
+    });
+
+    $.post("includes/GetCompletedWorkouts.php", {}, function (response){
+        console.log(response);
+        response = JSON.parse(response);
+        var workout_days = {};
+        for(i=0; i<response.length; i++){
+            var start_day = moment(response[i].Workout_Day).format('YYYY-MM-DD');
+            if(!(start_day in workout_days)) {
+                workout_days[start_day] = [];
+            }
+            workout_days[response[i].Workout_Day].push(response[i]);
+
+        }
+
+        addWorkoutToList(workout_days,"#CompletedList");
+
     });
 }
 
-function createWorkoutList(){
-
-}
 
 
-function addWorkoutToList(workout_days){
+function addWorkoutToList(workout_days,tab){
+
     for(var k in workout_days){
         var formatted_date = moment(k).format('YYYYMMDD');
         var new_row = '<div class="container row workout-rows" id='+formatted_date+'>' +
@@ -71,7 +90,8 @@ function addWorkoutToList(workout_days){
                     '<p>'+moment(k).format("MM/DD/YYYY")+'</p>'+
                 '</div>'+
             '</div>';
-        $("#PendingList").append(new_row);
+
+        $(tab).append(new_row);
         if(workout_days[k].length == 0){
             $("#"+formatted_date).append('<div class="rest-day">Rest Day</div>');
             continue;
@@ -81,13 +101,17 @@ function addWorkoutToList(workout_days){
             var lift_row = '<div class="wRows" id='+"ExID_"+workout_days[k][v].ExWork_id+'></div>';
             $("#"+formatted_date).append(lift_row);
             $("#ExID_"+workout_days[k][v].ExWork_id).append('' +
-                '<div id='+workout_days[k][v].Ex_id+' class="col-xs-4">'+ workout_days[k][v].Ex_Name +'</div>'+
+                '<div id='+workout_days[k][v].ExWork_id+' class="col-xs-4">'+ workout_days[k][v].Ex_Name +'</div>'+
                 '<div class="col-xs-4">'+ workout_days[k][v].SetsAndReps +'</div>'+
                 '<div class="input-group col-xs-4">' +
                 '<input type="text" class="" placeholder="Results">'+
                 '</div>');
         }
-        $("#"+formatted_date).append('<div class="submitWorkout btn ui-button col-xs-offset-5 col-xs-2 col-xs-offset-7">Submit</div>');
+        if(tab == "#PendingList") {
+            $("#" + formatted_date).append('<div class="submitWorkout btn ui-button col-xs-offset-5 col-xs-2 col-xs-offset-7">Submit</div>');
+        }else{
+            $("#" + formatted_date).append('<div class="editWorkout btn ui-button col-xs-offset-5 col-xs-2 col-xs-offset-7">Edit</div>');
+        }
 
 
     }

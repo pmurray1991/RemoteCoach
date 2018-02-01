@@ -1,41 +1,31 @@
 <script src="js/BuildWorkout.js"></script>
-<form>
-    <div class="form-group" id="pSelect">
-        <label for='ProgramsList'>Available Programs</label>
-        <select class="form-control" id='ProgramsList'>
-            <option value="" selected disabled>Please Select</option>
-        </select>
-    </div>
-    <div class="row" id="CWEW" hidden="True">
-        <div class="form-group col-xs-4">
-            <label for="workoutDay">Edit Workout day</label>
-        </div>
-        <div class="form-group col-xs-4" id="dayInput" hidden="True">
+<div class="row">
+    <h5 class="col-xs-2">Available Programs</h5>
+</div>
+<div class="row">
 
-            <!--<label  for="workoutDay">Edit Workout day</label>-->
-            <select class="form-control" id="workoutDay">
-                <option value="" selected disabled>Select Workout</option>
-            </select>
-        </div>
-    
-        <div class="form-group col-xs-4">
-            <button class="btn btn-success" style="white-space: normal">Add Workout</button>
-        </div>
-    </div>
-    
-    <div class="row" id="createWorkout" hidden="True">
-        <div class="col-xs-4"><label>Select Exercise</label></div>
-        <div class="col-xs-4"><label>Enter Reps and Sets</label></div>
-        <div class="col-xs-4"><label>Exercise Sequence</label></div>
-    </div>
-    <div id="editWorkout" hidden="True">
-        <div class="row"">
-            <div class="col-xs-3"><label>Delete Row</label></div>
-            <div class="col-xs-3"><label>Exercise Sequence</label></div>
-            <div class="col-xs-3"><label>Exercise</label></div>
-            <div class="col-xs-3"><label>Reps and Sets</label></div>   
+    <ul class="nav nav-tabs col-xs-1" id="ProgramsList">
+    </ul>
+    <div class="tab-content col-xs-offset-1 col-xs-10" id="tabs">
+        <div class="tab-pane" id="WorkoutsPage">
+            <div class="row">
+                <label class="col-xs-offset-4" for="datepicker">Select Date: </label>
+                <input data-provide="datepicker" type="text" id="datepicker"  placeholder="Date">
+            </div>
+            <div id="editWorkout" hidden="True">
+                <div class="row"">
+                    <div class="col-xs-3"><label>Delete Row</label></div>
+                    <div class="col-xs-3"><label>Exercise Sequence</label></div>
+                    <div class="col-xs-3"><label>Exercise</label></div>
+                    <div class="col-xs-3"><label>Reps and Sets</label></div>
+                </div>
+            </div>
         </div>
     </div>
+
+
+</div>
+
     <!-- Modal -->
 <div id="youSure" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -74,7 +64,6 @@
         <button class="btn btn-danger" id="CWBack">Back</button>
         <button class="btn btn-primary" id="CWNext">Next</button>
     </div>
-</form>
 
 
 

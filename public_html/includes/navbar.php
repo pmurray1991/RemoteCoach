@@ -12,7 +12,7 @@ session_start();
          <span class = "icon-bar"></span>
       </button>
 		
-      <a class = "navbar-brand" id="index" href ="#">Remote Coach</a>
+      <div class="navbar-brand" id="index" style="background-color: transparent !important;">Remote Coach</div>
    </div>
    
    <div class = "collapse navbar-collapse" id = "example-navbar-collapse">
@@ -22,7 +22,7 @@ session_start();
          <!--<li><a href = "CreateWorkoutProgram.php">Build Workout</a></li>-->
          <?php
             if(isset($_SESSION["login"])){
-                echo('<li data-toggle="collapse" data-target=".navbar-collapse.in"><a id ="ProgramPage"  href = "#Program">Program</a></li>');
+                echo('<li data-toggle="collapse" data-target=".navbar-collapse.in"><a id ="ProgramPage"  href = "#">Program</a></li>');
                 echo('<li><a id="MakeProgram" data-toggle="collapse" data-target=".navbar-collapse.in" href = "#MakeProgram">Make Program</a></li>');
                 echo('<li><a id ="CreateExercise" data-toggle="collapse" data-target=".navbar-collapse.in" href = "#CreateExercise">Create Exercise</a></li>');
                 echo('<li><a id ="CreateWorkout" data-toggle="collapse"  data-target=".navbar-collapse.in" href = "#CreateWorkout">Create Workout</a></li>');
